@@ -1,0 +1,72 @@
+{
+    "success": true,
+    "total": 30,
+    "rows": [
+      {
+        "id": 1,
+        "name": "Inbox",
+        "children": [],
+        "leaf": true
+      },
+      {
+        "id": 2,
+        "name": "Starred",
+        "children": [],
+        "leaf": true
+      },
+      {
+        "id": 3,
+        "name": "Sent",
+        "children": [],
+        "leaf": true
+      },
+      {
+        "id": 4,
+        "name": "Drafts",
+        "children": [],
+        "leaf": true
+      },
+      {
+        "id": 5,
+        "name": "Home",
+        "children": [
+          {
+            "id": 6,
+            "name": "Energy",
+            "children": [],
+            "leaf": true
+          },
+          {
+            "id": 7,
+            "name": "Internet",
+            "children": [],
+            "leaf": true
+          },
+          {
+            "id": 8,
+            "name": "Insurance",
+            "children": [],
+            "leaf": true
+          },
+          {
+            "id": 9,
+            "name": "Tax",
+            "children": [],
+            "leaf": true
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "name": "Newsletters",
+        "children": [],
+        "leaf": true
+      },
+      {
+        "id": 11,
+        "name": "All Mail",
+        "children": [],
+        "leaf": true
+      }
+    ]
+}

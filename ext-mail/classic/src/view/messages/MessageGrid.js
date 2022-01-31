@@ -7,21 +7,34 @@ Ext.define('ExtMail.view.messages.MessageGrid', {
             dataIndex: 'fullName',
             header: 'Sender',
             minWidth: 200,
-            header: false
+            header: false,
+            renderer: function(value, meta, rec) {
+                meta.tdStyle = 'font-weight: ' + (rec.get('unread') ? 'bold' : 'normal');
+
+                return value;
+            }
         },
         {
             dataIndex: 'subject',
             header: 'Subject',
             flex: 1,
-            header: false
+            header: false,
+            renderer: function(value, meta, rec) {
+                meta.tdStyle = 'font-weight: ' + (rec.get('unread') ? 'bold' : 'normal');
+                
+                return value;
+            }
         },
         {
-            xtype: 'datecolumn',
             dataIndex: 'date',
             header: 'Received',
-            width: 75,
-            format: 'j M',
-            header: false
+            width: 100,
+            header: false,
+            renderer: function(value, meta, rec) {
+                meta.tdStyle = 'font-weight: ' + (rec.get('unread') ? 'bold' : 'normal');
+                
+                return Ext.Date.format(value, 'j M');
+            }
         }
     ]
 });

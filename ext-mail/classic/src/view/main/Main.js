@@ -13,18 +13,67 @@ Ext.define('ExtMail.view.main.Main', {
         'ExtMail.view.main.MainController',
         'ExtMail.view.main.MainModel',
 
-        'ExtMail.view.messages.MessageGrid'
+        'ExtMail.view.labels.LabelsTree',
+        'ExtMail.view.messages.MessageGrid',
+        'ExtMail.view.reader.MessageReader',
+        'ExtMail.view.messages.MessagesToolbar'
     ],
 
     controller: 'main',
     viewModel: 'main',
 
+    layout: {
+        type: 'border'
+    },
+
     items: [
         {
-            xtype: 'messages-MessageGrid',
+            xtype: 'labels-LabelsTree',
+            region: 'west',
+            width: 300,
             bind: {
-                store: '{messages}'
+                store: '{labels}',
+                selection: '{selectedLabel}'
             }
+        },
+        {
+            xtype: 'panel',
+            region: 'center',
+            layout: 'card',
+            bind: {
+                activeItem: '{activeMessageCard}'
+            },
+            dockedItems: [
+                {
+                    xtype: 'messages-MessagesToolbar',
+                    dock: 'top',
+                    listeners: {
+                        refresh: 'onRefreshMessages',
+                        back: 'onBackToMessagesGrid',
+                        delete: 'onDeleteMessage',
+                        markunread: 'onMarkMessageUnread',
+                        archive: 'onArchiveMessage'
+                    }
+                }
+            ],
+            items: [
+                {
+                    xtype: 'messages-MessageGrid',
+                    bind: {
+                        store: '{messages}',
+                        selection: '{selectedMessage}'
+                    },
+                    listeners: {
+                        //itemclick: 'onMessageClick'
+                    }
+                },
+                {
+                    xtype: 'reader-MessageReader',
+                    bind: {
+                        data: '{selectedMessage}'
+                    }
+                }
+            ]
         }
     ]
 });

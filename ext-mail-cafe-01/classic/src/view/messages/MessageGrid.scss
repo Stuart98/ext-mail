@@ -1,0 +1,13 @@
+.message-grid {
+    .unread {
+        .x-grid-cell-inner {
+            font-weight: bold;
+        }
+    }
+
+    .draft {
+        .full-name {
+            color: red;
+        }
+    }
+}

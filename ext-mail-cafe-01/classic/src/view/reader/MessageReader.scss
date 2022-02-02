@@ -1,0 +1,31 @@
+.message-reader {
+    padding: 2rem;
+
+    .subject {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+    }
+    
+    .info {
+        display: flex;
+
+        .sender {
+            flex: 3;
+    
+            .name {
+                font-weight: bold;
+            }
+        }
+    
+        .date {
+            flex: 1
+        }
+    }
+
+    .message {
+        font-size: 1rem;
+        margin: 1.5rem 0;
+    }
+
+}

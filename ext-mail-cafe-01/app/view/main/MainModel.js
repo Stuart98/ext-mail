@@ -22,26 +22,6 @@ Ext.define('ExtMail.view.main.MainModel', {
         // the index of the Message Reader card layout to show. 0 = MessageGrid; 1 = MessageReader
         messageCardIndex: function(get) {
             return get('selectedMessage') ? 1 : 0;
-        },
-
-        // an object defining what MessageToolbar buttons should be visible depending on the state
-        visibleMessageButtons: function(get) {
-            var messageRecord = get('selectedMessage');
-            var messageSelected = !!messageRecord;
-            var isOutgoing = messageSelected ? messageRecord.get('outgoing') : false;
-
-            return {
-                // message list actions
-                refresh: !messageSelected,
-                messageCount: !messageSelected,
-
-                // message reader actions
-                back: messageSelected,
-                spacer: messageSelected && !isOutgoing,
-                delete: messageSelected && !isOutgoing,
-                markUnread: messageSelected && !isOutgoing,
-                archive: messageSelected && !isOutgoing
-            };
         }
     },
 

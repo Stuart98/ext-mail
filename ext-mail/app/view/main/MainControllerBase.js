@@ -5,7 +5,6 @@
 Ext.define('ExtMail.view.main.MainControllerBase', {
     extend: 'Ext.app.ViewController',
 
-
     requires: [
         'ExtMail.enums.Labels'
     ],

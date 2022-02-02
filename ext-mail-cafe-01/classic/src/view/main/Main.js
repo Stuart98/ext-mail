@@ -41,10 +41,7 @@ Ext.define('ExtMail.view.main.Main', {
                     dock: 'top',
                     listeners: {
                         refresh: 'onRefreshMessages',
-                        back: 'onBackToMessagesGrid',
-                        delete: 'onDeleteMessage',
-                        markunread: 'onMarkMessageUnread',
-                        archive: 'onArchiveMessage'
+                        back: 'onBackToMessagesGrid'
                     }
                 }
             ],

@@ -4,8 +4,30 @@ Ext.define('ExtMail.view.labels.LabelsTree', {
 
     initComponent: function() {
         Ext.apply(this, {
-            title: 'Labels',
+            title: 'Your Mail',
             rootVisible: false,
+            dockedItems: [
+                {
+                    xtype: 'toolbar',
+                    dock: 'top',
+                    weight: -1,
+                    items: [
+                        '->',
+                        {
+                            xtype: 'button',
+                            scale: 'large',
+                            text: 'Compose',
+                            iconCls: 'x-fa fa-edit',
+                            width: 150,
+                            handler: function() {
+                                this.fireEvent('compose');
+                            },
+                            scope: this
+                        },
+                        '->'
+                    ]
+                }
+            ],
             columns: [
                 {
                     xtype: 'treecolumn',

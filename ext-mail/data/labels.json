@@ -1,55 +1,64 @@
-{
-    "success": true,
-    "total": 30,
-    "rows": [
+[
+  {
+    "id": 1,
+    "name": "Inbox",
+    "children": [],
+    "leaf": true
+  },
+  {
+    "id": 2,
+    "name": "Starred",
+    "children": [],
+    "leaf": true
+  },
+  {
+    "id": 3,
+    "name": "Sent",
+    "children": [],
+    "leaf": true
+  },
+  {
+    "id": 4,
+    "name": "Drafts",
+    "children": [],
+    "leaf": true
+  },
+  {
+    "id": 5,
+    "name": "All Mail",
+    "children": [],
+    "leaf": true
+  },
+  {
+    "id": 6,
+    "name": "Custom Labels",
+    "expanded": true,
+    "children": [
       {
-        "id": 1,
-        "name": "Inbox",
-        "children": [],
-        "leaf": true
-      },
-      {
-        "id": 2,
-        "name": "Starred",
-        "children": [],
-        "leaf": true
-      },
-      {
-        "id": 3,
-        "name": "Sent",
-        "children": [],
-        "leaf": true
-      },
-      {
-        "id": 4,
-        "name": "Drafts",
-        "children": [],
-        "leaf": true
-      },
-      {
-        "id": 5,
+        "id": 7,
         "name": "Home",
+        "expanded": true,
         "children": [
           {
-            "id": 6,
+            "id": 8,
             "name": "Energy",
             "children": [],
             "leaf": true
           },
           {
-            "id": 7,
+            "id": 9,
             "name": "Internet",
             "children": [],
             "leaf": true
           },
           {
-            "id": 8,
+            "id": 10,
             "name": "Insurance",
             "children": [],
             "leaf": true
           },
           {
-            "id": 9,
+            "id": 11,
             "name": "Tax",
             "children": [],
             "leaf": true
@@ -57,16 +66,11 @@
         ]
       },
       {
-        "id": 10,
+        "id": 12,
         "name": "Newsletters",
-        "children": [],
-        "leaf": true
-      },
-      {
-        "id": 11,
-        "name": "All Mail",
         "children": [],
         "leaf": true
       }
     ]
-}
+  }
+]

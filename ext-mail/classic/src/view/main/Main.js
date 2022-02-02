@@ -34,14 +34,18 @@ Ext.define('ExtMail.view.main.Main', {
             bind: {
                 store: '{labels}',
                 selection: '{selectedLabel}'
+            },
+            listeners: {
+                compose: 'onComposeMessage'
             }
         },
         {
             xtype: 'panel',
             region: 'center',
             layout: 'card',
+            reference: 'messagesWrapper',
             bind: {
-                activeItem: '{activeMessageCard}'
+                activeItem: '{messageCardIndex}'
             },
             dockedItems: [
                 {
@@ -60,11 +64,12 @@ Ext.define('ExtMail.view.main.Main', {
                 {
                     xtype: 'messages-MessageGrid',
                     bind: {
-                        store: '{messages}',
-                        selection: '{selectedMessage}'
+                        store: '{messages}'
                     },
                     listeners: {
-                        //itemclick: 'onMessageClick'
+                        itemclick: 'onMessageClick',
+                        starmessage: 'onStarMessage',
+                        unstarmessage: 'onUnStarMessage'
                     }
                 },
                 {

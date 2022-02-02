@@ -5,12 +5,13 @@ Ext.define('ExtMail.store.Labels', {
 
     model: 'ExtMail.model.Label',
 
+    root: {
+        name: 'Test',
+        expanded: true
+    },
+
     proxy: {
         type: 'ajax',
-        url: 'data/labels.json',
-        reader: {
-            type: 'json',
-            rootProperty: 'rows'
-        }
+        url: 'data/labels.json'
     }
 });

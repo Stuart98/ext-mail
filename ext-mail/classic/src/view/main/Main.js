@@ -6,10 +6,12 @@
  * TODO - Replace this content of this view to suite the needs of your application.
  */
 Ext.define('ExtMail.view.main.Main', {
-    extend: 'Ext.Viewport',
+    extend: 'Ext.panel.Panel',
     xtype: 'app-main',
 
     requires: [
+        'Ext.plugin.Viewport',
+
         'ExtMail.view.main.MainController',
         'ExtMail.view.main.MainModel',
 
@@ -19,12 +21,40 @@ Ext.define('ExtMail.view.main.Main', {
         'ExtMail.view.messages.MessagesToolbar'
     ],
 
+    plugins: 'viewport',
+
     controller: 'main',
     viewModel: 'main',
 
     layout: {
         type: 'border'
     },
+
+
+    dockedItems: [
+        {
+            xtype: 'container',
+            height: 50,
+            padding: '10 0 0 0',
+            style: 'background: white',
+            layout: {
+                type: 'hbox',
+                align: 'stretch'
+            },
+            items: [
+                {
+                    xtype: 'component',
+                    width: 300,
+                    html: '<img src="resources/images/ext-mail-logo.png" style="height: 50px; margin-left: 80px;" />'
+                },
+                {
+                    xtype: 'textfield',
+                    emptyText: 'Search all mail',
+                    width: 400
+                }
+            ]
+        }        
+    ],
 
     items: [
         {
@@ -51,6 +81,7 @@ Ext.define('ExtMail.view.main.Main', {
                 {
                     xtype: 'messages-MessagesToolbar',
                     dock: 'top',
+                    height: 56,
                     listeners: {
                         refresh: 'onRefreshMessages',
                         back: 'onBackToMessagesGrid',

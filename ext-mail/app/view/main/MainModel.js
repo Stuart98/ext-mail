@@ -7,6 +7,7 @@ Ext.define('ExtMail.view.main.MainModel', {
     alias: 'viewmodel.main',
 
     requires: [
+        'ExtMail.enums.Labels',
         'ExtMail.store.Contacts',
         'ExtMail.store.Messages',
         'ExtMail.store.Labels'
@@ -18,7 +19,9 @@ Ext.define('ExtMail.view.main.MainModel', {
 
         // holds the ExtMail.model.Message instance that has been selected from the grid.
         // this will trigger the MessageReader to show - see `messageCardIndex` formula
-        selectedMessage: null
+        selectedMessage: null,
+
+        searchTerm: ''
     },
 
     formulas: {

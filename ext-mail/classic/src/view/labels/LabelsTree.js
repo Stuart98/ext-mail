@@ -4,7 +4,6 @@ Ext.define('ExtMail.view.labels.LabelsTree', {
 
     initComponent: function() {
         Ext.apply(this, {
-            title: 'Your Mail',
             rootVisible: false,
             dockedItems: [
                 {

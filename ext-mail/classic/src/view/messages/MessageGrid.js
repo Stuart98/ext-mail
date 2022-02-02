@@ -29,8 +29,8 @@ Ext.define('ExtMail.view.messages.MessageGrid', {
 
     columns: [
         {
-            xtype:'actioncolumn',
-            width:50,
+            xtype: 'actioncolumn',
+            width: 25,
             items: [
                 {
                     glyph: '☆',

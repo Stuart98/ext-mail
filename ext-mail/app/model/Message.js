@@ -1,5 +1,9 @@
 Ext.define('ExtMail.model.Message', {
     extend: 'Ext.data.Model',
+
+    requires: [
+        'Ext.data.identifier.Uuid'
+    ],
     
     identifier: 'uuid',
 

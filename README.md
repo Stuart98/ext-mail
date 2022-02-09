@@ -26,7 +26,8 @@ You can find a demo of the application at: [https://ext-mail.ashworthdigital.com
 ## Running the Application
 
 1. Install [Sencha Cmd](https://www.sencha.com/products/extjs/cmd-download/)
-2. Open Command Line
-3. Navigate to `ext-mail` application folder (i.e. `<where-you-cloned-to>/ext-mail`)
-4. Run `sencha app watch`
-5. Open browser to `http://localhost:1841`
+2. Paste the Ext JS SDK into the root of the project as a folder name `ext`.
+3. Open Command Line
+4. Navigate to `ext-mail` application folder (i.e. `<where-you-cloned-to>/ext-mail`)
+5. Run `sencha app watch`
+6. Open browser to `http://localhost:1841`

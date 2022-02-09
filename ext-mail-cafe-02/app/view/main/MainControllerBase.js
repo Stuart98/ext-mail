@@ -68,5 +68,40 @@ Ext.define('ExtMail.view.main.MainControllerBase', {
      */
     onBackToMessagesGrid: function() {
         this.getViewModel().set('selectedMessage', null);
+    },
+
+    /**
+     * Handler for click on the `delete message` button.
+     * Removes the `selectedMessage` record from the `messages` store, and moves
+     * back to the MessageGrid
+     */
+     onDeleteMessage: function() {
+        var vm = this.getViewModel();
+
+        this.getViewModel().getStore('messages').remove(vm.get('selectedMessage'));
+
+        this.onBackToMessagesGrid();
+    },
+
+    /**
+     * Handler for click on the `archive` button.
+     * Removes the INBOX label from the `selectedMessage` record, and moves
+     * back to the MessageGrid
+     */
+    onArchiveMessage: function() {
+        this.getViewModel().get('selectedMessage').removeLabel(ExtMail.enums.Labels.INBOX);
+
+        this.onBackToMessagesGrid();
+    },
+
+    /**
+     * Handler for click on the `mark unread` button.
+     * Sets the `unread` flag back to true, and moves
+     * back to the MessageGrid
+     */
+    onMarkMessageUnread: function() {
+        this.getViewModel().get('selectedMessage').set('unread', true);
+
+        this.onBackToMessagesGrid();
     }
 });

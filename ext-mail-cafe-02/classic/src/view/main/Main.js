@@ -13,6 +13,7 @@ Ext.define('ExtMail.view.main.Main', {
         'ExtMail.view.main.MainController',
         'ExtMail.view.main.MainModel',
 
+        'ExtMail.view.labels.LabelsTree',
         'ExtMail.view.messages.MessageGrid',
         'ExtMail.view.reader.MessageReader',
         'ExtMail.view.messages.MessagesToolbar'
@@ -28,6 +29,18 @@ Ext.define('ExtMail.view.main.Main', {
 
     items: [
         {
+            xtype: 'labels-LabelsTree',
+            region: 'west',
+            width: 300,
+            bind: {
+                store: '{labels}',
+                selection: '{selectedLabel}'
+            },
+            listeners: {
+                compose: 'onComposeMessage'
+            }
+        },
+        {
             xtype: 'panel',
             region: 'center',
             layout: 'card',
@@ -39,9 +52,13 @@ Ext.define('ExtMail.view.main.Main', {
                 {
                     xtype: 'messages-MessagesToolbar',
                     dock: 'top',
+                    height: 56,
                     listeners: {
                         refresh: 'onRefreshMessages',
-                        back: 'onBackToMessagesGrid'
+                        back: 'onBackToMessagesGrid',
+                        delete: 'onDeleteMessage',
+                        markunread: 'onMarkMessageUnread',
+                        archive: 'onArchiveMessage'
                     }
                 }
             ],

@@ -9,7 +9,7 @@ Ext.define('ExtMail.view.messages.MessagesToolbar', {
             iconCls: 'x-fa fa-redo',
             handler: 'onRefreshClick',
             bind: {
-                hidden: '{selectedMessage}'
+                hidden: '{!visibleMessageButtons.refresh}'
             }
         },
         {
@@ -18,7 +18,52 @@ Ext.define('ExtMail.view.messages.MessagesToolbar', {
             handler: 'onBackClick',
             hidden: true, // hide from start
             bind: {
-                hidden: '{!selectedMessage}'
+                hidden: '{!visibleMessageButtons.back}'
+            }
+        },
+        {
+            tooltip: 'Archive',
+            iconCls: 'x-fa fa-archive',
+            handler: 'onArchiveClick',
+            hidden: true, // hide from start
+            bind: {
+                hidden: '{!visibleMessageButtons.archive}'
+            }
+        },
+        {
+            tooltip: 'Delete',
+            iconCls: 'x-fa fa-trash',
+            handler: 'onDeleteClick',
+            hidden: true, // hide from start
+            bind: {
+                hidden: '{!visibleMessageButtons.delete}'
+            }
+        },
+        {
+            xtype: 'tbseparator',
+            bind: {
+                hidden: '{!visibleMessageButtons.spacer}'
+            }
+        },
+        {
+            tooltip: 'Mark as Unread',
+            iconCls: 'x-fa fa-envelope',
+            handler: 'onMarkUnreadClick',
+            hidden: true, // hide from start
+            bind: {
+                hidden: '{!visibleMessageButtons.markUnread}'
+            }
+        },
+        '->',
+        {
+            xtype: 'component',
+            tpl: '{count} messages',
+            data: {},
+            bind: {
+                hidden: '{!visibleMessageButtons.messageCount}',
+                data: {
+                    count: '{messages.count}'
+                }
             }
         }
     ],
@@ -29,5 +74,17 @@ Ext.define('ExtMail.view.messages.MessagesToolbar', {
 
     onBackClick: function() {
         this.fireEvent('back')
+    },
+
+    onArchiveClick: function() {
+        this.fireEvent('archive')
+    },
+
+    onDeleteClick: function() {
+        this.fireEvent('delete')
+    },
+
+    onMarkUnreadClick: function() {
+        this.fireEvent('markunread')
     }
 });

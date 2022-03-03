@@ -11,21 +11,9 @@ Ext.define('ExtMail.view.main.MainControllerBase', {
     ],
 
     /**
-     * Handler for the `itemclick` event of the MessageGrid.
      * This will either show the MessageReader of ComposeWindow for the clicked Message
-     * @param {Ext.panel.grid} grid 
-     * @param {ExtMail.model.Message} messageRecord 
-     * @param {Ext.dom.Element} rowEl 
-     * @param {Number} index 
-     * @param {Ext.Event} e 
-     * @returns 
      */
-    onMessageClick: function(grid, messageRecord, rowEl, index, e) {
-        // don't do the row action if we've clicked on the action column
-        if (e.getTarget('.x-action-col-icon')) {
-            return;
-        }
-
+    handleMessageClick: function(messageRecord) {
         // if it's a draft then we show the compose window, otherwise we show the message reader
         if (messageRecord.get('draft')) {
             this.showComposeWindow(messageRecord);
@@ -58,7 +46,7 @@ Ext.define('ExtMail.view.main.MainControllerBase', {
     /**
      * Handler for clicking the `star` button on the MessageGrid.
      * Toggles the `starred` flag and adds STARRED label.
-     * @param {ExtMail.model.Message} messageRecord 
+     * @param {ExtMail.model.Message} messageRecord
      */
     onStarMessage: function(messageRecord) {
         messageRecord.addLabel(ExtMail.enums.Labels.STARRED);
@@ -70,7 +58,7 @@ Ext.define('ExtMail.view.main.MainControllerBase', {
     /**
      * Handler for clicking the `un-star` button on the MessageGrid.
      * Toggles the `starred` flag and adds STARRED label.
-     * @param {ExtMail.model.Message} messageRecord 
+     * @param {ExtMail.model.Message} messageRecord
      */
     onUnStarMessage: function(messageRecord) {
         messageRecord.removeLabel(ExtMail.enums.Labels.STARRED);
@@ -82,11 +70,10 @@ Ext.define('ExtMail.view.main.MainControllerBase', {
     /**
      * Handler for the `send` event from the ComposeForm.
      * Sets the Message to SENT status. Closes the ComposeWindow
-     * @param {ExtMail.model.Message} messageRecord 
+     * @param {ExtMail.model.Message} messageRecord
      * @param {Ext.Event} e
-     * @param {ExtMail.view.compose.ComposeWIndow} composeWindow Injected parameter by the Ext.bind call - the ComposeWindow that was used to compose the message.
      */
-    onSendMessage: function (messageRecord, e, composeWindow) {
+    onSendMessage: function (messageRecord, e) {
         messageRecord.removeLabel(ExtMail.enums.Labels.DRAFTS);
         messageRecord.addLabel(ExtMail.enums.Labels.SENT);
 
@@ -97,21 +84,16 @@ Ext.define('ExtMail.view.main.MainControllerBase', {
         });
 
         messageRecord.commit();
-
-        composeWindow.close();
     },
 
     /**
      * Handler for the `discarddraft` event from the ComposeForm.
      * Removes the message from the `messages` store, and closes the ComposeWindow
-     * @param {ExtMail.model.Message} messageRecord 
+     * @param {ExtMail.model.Message} messageRecord
      * @param {Ext.Event} e
-     * @param {ExtMail.view.compose.ComposeWIndow} composeWindow Injected parameter by the Ext.bind call - the ComposeWindow that was used to compose the message.
      */
-    onDiscardDraftMessage: function(messageRecord, e, composeWindow) {
+    onDiscardDraftMessage: function(messageRecord, e) {
         this.getViewModel().getStore('messages').remove(messageRecord);
-
-        composeWindow.close();
     },
 
     /**

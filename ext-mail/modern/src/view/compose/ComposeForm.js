@@ -11,12 +11,11 @@ Ext.define('ExtMail.view.compose.ComposeForm', {
     items: [
         {
             xtype: 'combobox',
-            emptyText: 'Recipient',
-            width: '100%',
+            placeholder: 'Recipient',
             displayField: 'email',
             valueField: 'email',
             queryMode: 'local',
-            allowBlank: false,
+            required: true,
             bind: {
                 store: '{contacts}',
                 selection: '{selectedRecipient}',
@@ -25,24 +24,22 @@ Ext.define('ExtMail.view.compose.ComposeForm', {
         },
         {
             xtype: 'textfield',
-            emptyText: 'Subject',
+            placeholder: 'Subject',
             bind: {
                 value: '{messageRecord.subject}'
             }
         },
         {
             xtype: 'textareafield',
+            placeholder: 'Compose email',
             flex: 1,
             bind: {
                 value: '{messageRecord.message}'
             }
-        }
-    ],
-
-    dockedItems: [
+        },
         {
             xtype: 'toolbar',
-            dock: 'bottom',
+            docked: 'bottom',
             margin: 0,
             items: [
                 {
@@ -61,5 +58,11 @@ Ext.define('ExtMail.view.compose.ComposeForm', {
                 }
             ]
         }
-    ]
+    ],
+
+    onSendClick: function() {
+      if (this.validate()) {
+        this.callParent(arguments);
+      }
+    }
 });

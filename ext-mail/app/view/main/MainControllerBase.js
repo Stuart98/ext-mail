@@ -1,0 +1,149 @@
+/**
+ * This class is the controller for the main view for the application. It is specified as
+ * the "controller" of the Main view class.
+ */
+Ext.define('ExtMail.view.main.MainControllerBase', {
+    extend: 'Ext.app.ViewController',
+
+
+    requires: [
+        'ExtMail.enums.Labels'
+    ],
+
+    /**
+     * This will either show the MessageReader of ComposeWindow for the clicked Message
+     */
+    handleMessageClick: function(messageRecord) {
+        // if it's a draft then we show the compose window, otherwise we show the message reader
+        if (messageRecord.get('draft')) {
+            this.showComposeWindow(messageRecord);
+        } else {
+            this.getViewModel().set('selectedMessage', messageRecord);
+        }
+    },
+
+    /**
+     * Handler for the Compose button click. This creates a new Message record
+     * and adds it to the store, opening the ComposeWindow.
+     */
+    onComposeMessage: function() {
+        var messageRecord = Ext.create('ExtMail.model.Message', {
+            labels: [ ExtMail.enums.Labels.DRAFTS ],
+            outgoing: true,
+            draft: true
+        });
+
+        this.getViewModel().getStore('messages').add(messageRecord);
+        this.getViewModel().getStore('messages').commitChanges(); // commit changes immediately since we aren't persisting to backend
+
+        this.showComposeWindow(messageRecord);
+    },
+
+    showComposeWindow: function() {
+        console.log('Implement in sub-class');
+    },
+
+    /**
+     * Handler for clicking the `star` button on the MessageGrid.
+     * Toggles the `starred` flag and adds STARRED label.
+     * @param {ExtMail.model.Message} messageRecord
+     */
+    onStarMessage: function(messageRecord) {
+        messageRecord.addLabel(ExtMail.enums.Labels.STARRED);
+
+        messageRecord.set('starred', true);
+        messageRecord.commit();
+    },
+
+    /**
+     * Handler for clicking the `un-star` button on the MessageGrid.
+     * Toggles the `starred` flag and adds STARRED label.
+     * @param {ExtMail.model.Message} messageRecord
+     */
+    onUnStarMessage: function(messageRecord) {
+        messageRecord.removeLabel(ExtMail.enums.Labels.STARRED);
+
+        messageRecord.set('starred', false);
+        messageRecord.commit();
+    },
+
+    /**
+     * Handler for the `send` event from the ComposeForm.
+     * Sets the Message to SENT status. Closes the ComposeWindow
+     * @param {ExtMail.model.Message} messageRecord
+     * @param {Ext.Event} e
+     */
+    onSendMessage: function (messageRecord, e) {
+        messageRecord.removeLabel(ExtMail.enums.Labels.DRAFTS);
+        messageRecord.addLabel(ExtMail.enums.Labels.SENT);
+
+        messageRecord.set({
+            draft: false,
+            sent: true,
+            date: new Date()
+        });
+
+        messageRecord.commit();
+    },
+
+    /**
+     * Handler for the `discarddraft` event from the ComposeForm.
+     * Removes the message from the `messages` store, and closes the ComposeWindow
+     * @param {ExtMail.model.Message} messageRecord
+     * @param {Ext.Event} e
+     */
+    onDiscardDraftMessage: function(messageRecord, e) {
+        this.getViewModel().getStore('messages').remove(messageRecord);
+    },
+
+    /**
+     * Handler for click on the `refresh` button.
+     * Reloads the `messages` store.
+     */
+    onRefreshMessages: function() {
+        this.getViewModel().getStore('messages').reload();
+    },
+
+    /**
+     * Handler for click on the `back to messages` button.
+     * Sets the `selectedMessage` viewmodel prop to null triggering the card switch
+     */
+    onBackToMessagesGrid: function() {
+        this.getViewModel().set('selectedMessage', null);
+    },
+
+    /**
+     * Handler for click on the `delete message` button.
+     * Removes the `selectedMessage` record from the `messages` store, and moves
+     * back to the MessageGrid
+     */
+     onDeleteMessage: function() {
+        var vm = this.getViewModel();
+
+        this.getViewModel().getStore('messages').remove(vm.get('selectedMessage'));
+
+        this.onBackToMessagesGrid();
+    },
+
+    /**
+     * Handler for click on the `archive` button.
+     * Removes the INBOX label from the `selectedMessage` record, and moves
+     * back to the MessageGrid
+     */
+    onArchiveMessage: function() {
+        this.getViewModel().get('selectedMessage').removeLabel(ExtMail.enums.Labels.INBOX);
+
+        this.onBackToMessagesGrid();
+    },
+
+    /**
+     * Handler for click on the `mark unread` button.
+     * Sets the `unread` flag back to true, and moves
+     * back to the MessageGrid
+     */
+    onMarkMessageUnread: function() {
+        this.getViewModel().get('selectedMessage').set('unread', true);
+
+        this.onBackToMessagesGrid();
+    }
+});

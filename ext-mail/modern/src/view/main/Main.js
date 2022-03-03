@@ -4,12 +4,48 @@
  * added to the Viewport container.
  */
 Ext.define('ExtMail.view.main.Main', {
-    extend: 'Ext.tab.Panel',
+    extend: 'Ext.NavigationView',
     xtype: 'app-main',
+    fullscreen: true,
 
     requires: [
+        'ExtMail.view.main.MainController',
+        'ExtMail.view.main.MainModel',
+
+        'ExtMail.view.messages.MessagesGrid',
+        'ExtMail.view.messages.MessagesToolbar'
     ],
 
     controller: 'main',
-    viewModel: 'main'
+    viewModel: 'main',
+
+    defaultBackButtonText: 'Back',
+    useTitleForBackButtonText: false,
+    navigationBar: false,
+    items: [
+        {
+            xtype: 'messages-MessagesToolbar',
+            docked: 'top',
+            listeners: {
+                refresh: 'onRefreshMessages',
+                back: 'onBackToMessagesGrid',
+                delete: 'onDeleteMessage',
+                markunread: 'onMarkMessageUnread',
+                archive: 'onArchiveMessage'
+            }
+        },
+        {
+            xtype: 'messages-MessagesGrid',
+            hideHeaders: true,
+            titleBar: false,
+            bind: {
+                store: '{messages}'
+            },
+            listeners: {
+                childtap: 'onMessageTap',
+                starmessage: 'onStarMessage',
+                unstarmessage: 'onUnStarMessage'
+            }
+        }
+    ]
 });

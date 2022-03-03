@@ -34,15 +34,16 @@ Ext.define('ExtMail.view.main.MainModel', {
         visibleMessageButtons: function(get) {
             var messageRecord = get('selectedMessage');
             var messageSelected = !!messageRecord;
+            var isCompose = messageRecord && messageRecord.get('draft');
             var isOutgoing = messageSelected ? messageRecord.get('outgoing') : false;
 
             return {
                 // message list actions
-                refresh: !messageSelected,
-                messageCount: !messageSelected,
+                refresh: !messageSelected && !isCompose,
+                messageCount: !messageSelected && !isCompose,
 
                 // message reader actions
-                back: messageSelected,
+                back: messageSelected || isCompose,
                 spacer: messageSelected && !isOutgoing,
                 delete: messageSelected && !isOutgoing,
                 markUnread: messageSelected && !isOutgoing,
@@ -67,7 +68,7 @@ Ext.define('ExtMail.view.main.MainModel', {
         this.callParent(arguments);
 
         // filter the Messages store when the selectedLabel changes
-        this.bind('{selectedLabel}', this.onSelectedLabelChange, this);
+        this.bind('{selectedLabel}', this.filterMessages, this);
 
         // select the first label (Inbox) on load
         this.bind('{labels.first}', this.onFirstLabelRecordChange, this);
@@ -77,32 +78,35 @@ Ext.define('ExtMail.view.main.MainModel', {
 
         // recalculate the unread count on each label after the Messages store changes
         this.getStore('messages').on('datachanged', this.calculateUnreadCounts, this);
+
+        this.bind('{searchTerm}', this.filterMessages, this);
     },
 
     /**
      * When first item in the `labels` store changes (i.e. it is loaded) then we select it
-     * @param {ExtMail.model.Label} firstLabelRecord 
+     * @param {ExtMail.model.Label} firstLabelRecord
      */
     onFirstLabelRecordChange: function(firstLabelRecord) {
         this.set('selectedLabel', firstLabelRecord);
     },
 
     /**
-     * Handler for when the `selectedLabel` property changes. This will filter the `messages`
-     * store to show the correct messages in the grid.
-     * @param {ExtMail.model.Label} labelRecord 
+     * Filter messages store by `selectedLabel` and `searchTerm`
      */
-    onSelectedLabelChange: function(labelRecord) {
-        this.getStore('messages').clearFilter();
+    filterMessages: function() {
+      var labelRecord = this.get('selectedLabel');
+      var searchTerm = this.get('searchTerm');
 
-        this.getStore('messages').filterBy(function(messageRecord) {
-            return labelRecord ? messageRecord.hasLabel(labelRecord.getId()) : false;
-        });
+      this.getStore('messages').clearFilter();
+
+      this.getStore('messages').filterBy(function(messageRecord) {
+          return (labelRecord ? messageRecord.hasLabel(labelRecord.getId()) : false) && (!searchTerm || messageRecord.get('subject').indexOf(searchTerm) >= 0);
+      });
     },
 
     /**
      * Handler for when the `selectedMessage` property changes. This will mark the message as read.
-     * @param {ExtMail.model.Message} messageRecord 
+     * @param {ExtMail.model.Message} messageRecord
      */
     onSelectedMessageChange: function(messageRecord) {
         if (messageRecord) {

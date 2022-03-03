@@ -50,10 +50,13 @@ Ext.define('ExtMail.view.main.Main', {
                 {
                     xtype: 'textfield',
                     emptyText: 'Search all mail',
-                    width: 400
+                    width: 400,
+                    bind: {
+                      value: '{searchTerm}'
+                    }
                 }
             ]
-        }        
+        }
     ],
 
     items: [

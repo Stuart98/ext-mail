@@ -27,8 +27,8 @@ Ext.define('ExtMail.view.compose.ComposeFormBase', {
 
         // if we have a recipient record then pull the properties from it
         if (selectedRecipientRecord) {
-            firstName = selectedRecipientRecord.get('first_name');
-            lastName = selectedRecipientRecord.get('last_name');
+            firstName = selectedRecipientRecord.get('firstName');
+            lastName = selectedRecipientRecord.get('lastName');
             email = selectedRecipientRecord.get('email');
         }
 

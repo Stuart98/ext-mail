@@ -1,0 +1,31 @@
+.messages-grid {
+    .avatar {
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 35px;
+        height: 35px;
+    }
+
+    .unread {
+        .name, .date, .subject {
+            font-weight: bold;
+        }
+    }
+
+    .top-line {
+        display: flex;
+
+    }
+
+    .name {
+        font-size: 1.05rem;
+        flex: 1;
+    }
+
+    .subject, .message {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}

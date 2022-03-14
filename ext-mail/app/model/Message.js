@@ -2,10 +2,11 @@ Ext.define('ExtMail.model.Message', {
     extend: 'Ext.data.Model',
 
     requires: [
-        'Ext.data.identifier.Uuid'
+        'Ext.data.identifier.Sequential',
+        'ExtMail.store.MessageLabels'
     ],
     
-    identifier: 'uuid',
+    identifier: 'sequential',
 
     fields: [
         {
@@ -40,7 +41,8 @@ Ext.define('ExtMail.model.Message', {
         {
             name: 'labels', // an array of ExtMail.enums.Labels
             type: 'auto',
-            defaultValue: []
+            defaultValue: [],
+            persist: false
         },
         {
             name: 'unread',
@@ -57,6 +59,20 @@ Ext.define('ExtMail.model.Message', {
         {
             name: 'sent',
             type: 'boolean'
+        },
+        {
+            name: 'starred',
+            type: 'boolean'
+        }
+    ],
+
+    hasMany: [
+        {
+            model: 'ExtMail.model.MessageLabel',
+            name: 'labels',
+            storeConfig: {
+                type: 'MessageLabels'
+            }
         }
     ],
 
@@ -66,9 +82,7 @@ Ext.define('ExtMail.model.Message', {
      * @returns 
      */
     hasLabel: function(labelId) {
-        var labels = this.get('labels') || [];
-
-        return labels.indexOf(labelId) >= 0
+        return this.labels().findExact('labelId', labelId) >= 0;
     },
 
     /**
@@ -82,6 +96,11 @@ Ext.define('ExtMail.model.Message', {
         labels.push(labelId);
 
         this.set('labels', Ext.clone(labels)); // clone so it triggers an update on the record
+
+        this.labels().add({
+            messageId: this.getId(),
+            labelId: labelId
+        });
     },
 
     /**
@@ -95,5 +114,11 @@ Ext.define('ExtMail.model.Message', {
         labels = Ext.Array.remove(labels, labelId);
 
         this.set('labels', Ext.clone(labels)); // clone so it triggers an update on the record
+        
+        var index = this.labels().findBy(function(rec) {
+            return rec.get('messageId') === this.getId() && rec.get('labelId') === labelId;
+        }, this);
+
+        this.labels().removeAt(index);
     }
 });

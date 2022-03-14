@@ -30,11 +30,23 @@ Ext.define('ExtMail.view.main.MainControllerBase', {
         var messageRecord = Ext.create('ExtMail.model.Message', {
             labels: [ ExtMail.enums.Labels.DRAFTS ],
             outgoing: true,
-            draft: true
+            draft: true,
+            date: new Date(),
+            subject: '',
+            message: '',
+            email: '',
+            firstName: '',
+            lastName: ''
         });
 
+        // add the DRAFTS label after the message has synced
+        this.getViewModel().getStore('messages').on('write', function(store, operation) {
+            if (operation.action === 'create') {
+                messageRecord.addLabel(ExtMail.enums.Labels.DRAFTS);
+            }
+        }, this, { single: true });
+
         this.getViewModel().getStore('messages').add(messageRecord);
-        this.getViewModel().getStore('messages').commitChanges(); // commit changes immediately since we aren't persisting to backend
 
         this.showComposeWindow(messageRecord);
     },
@@ -52,7 +64,6 @@ Ext.define('ExtMail.view.main.MainControllerBase', {
         messageRecord.addLabel(ExtMail.enums.Labels.STARRED);
 
         messageRecord.set('starred', true);
-        messageRecord.commit();
     },
 
     /**
@@ -64,7 +75,6 @@ Ext.define('ExtMail.view.main.MainControllerBase', {
         messageRecord.removeLabel(ExtMail.enums.Labels.STARRED);
 
         messageRecord.set('starred', false);
-        messageRecord.commit();
     },
 
     /**
@@ -82,8 +92,6 @@ Ext.define('ExtMail.view.main.MainControllerBase', {
             sent: true,
             date: new Date()
         });
-
-        messageRecord.commit();
     },
 
     /**

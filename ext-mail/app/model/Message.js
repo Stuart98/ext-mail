@@ -41,7 +41,8 @@ Ext.define('ExtMail.model.Message', {
         {
             name: 'labels', // an array of ExtMail.enums.Labels
             type: 'auto',
-            defaultValue: []
+            defaultValue: [],
+            persist: false
         },
         {
             name: 'unread',
@@ -113,7 +114,7 @@ Ext.define('ExtMail.model.Message', {
         labels = Ext.Array.remove(labels, labelId);
 
         this.set('labels', Ext.clone(labels)); // clone so it triggers an update on the record
-
+        
         var index = this.labels().findBy(function(rec) {
             return rec.get('messageId') === this.getId() && rec.get('labelId') === labelId;
         }, this);

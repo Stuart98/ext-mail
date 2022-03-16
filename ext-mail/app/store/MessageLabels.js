@@ -3,5 +3,7 @@ Ext.define('ExtMail.store.MessageLabels', {
 
     alias: 'store.MessageLabels',
 
-    model: 'ExtMail.model.MessageLabel'
+    model: 'ExtMail.model.MessageLabel',
+
+    autoSync: true
 });

@@ -33,6 +33,8 @@ Ext.define('ExtMail.view.main.MainControllerBase', {
             draft: true
         });
 
+        messageRecord.addLabel(ExtMail.enums.Labels.DRAFTS);
+
         this.getViewModel().getStore('messages').add(messageRecord);
         this.getViewModel().getStore('messages').commitChanges(); // commit changes immediately since we aren't persisting to backend
 

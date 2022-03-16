@@ -8,6 +8,10 @@
         height: 35px;
     }
 
+    .subject-cell .x-gridcell-body-el {
+        flex: 1;
+    }
+
     .unread {
         .name, .date, .subject {
             font-weight: bold;

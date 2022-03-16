@@ -22,11 +22,12 @@ Ext.define('ExtMail.view.messages.MessagesGrid', {
             tpl: [
                 [
                     '<div class="avatar" style="background-color: {[this.getAvatarColour(values.firstName)]};">',
-                    '   <span>{[values.firstName.substring(0, 1).toUpperCase()]}</span>',
+                    '   <span>{[(values.firstName || "").substring(0, 1).toUpperCase()]}</span>',
                     '</div>',
                 ].join(''),
                 {
                     getAvatarColour: function(name) {
+                        name = name || '?';
                         var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
                         var colours = ['#e6194B', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#42d4f4', '#f032e6', '#bfef45', '#fabed4', '#469990', '#dcbeff', '#9A6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#a9a9a9', '#ffffff', '#000000'];
                         var initial = name.substring(0, 1).toUpperCase();
@@ -40,6 +41,7 @@ Ext.define('ExtMail.view.messages.MessagesGrid', {
             dataIndex: 'subject',
             flex: 1,
             cell: {
+                cls: 'subject-cell',
                 encodeHtml: false,
                 tools: {
                     star: {
@@ -67,7 +69,9 @@ Ext.define('ExtMail.view.messages.MessagesGrid', {
                     '      <span class="name">{fullName}</span>',
                     '      <span class="date">{date:date("j M \'y")}</span>',
                     '   </div>',
-                    '   <div class="subject">{subject}</div>',
+                    '   <div class="subject">',
+                    '       <tpl if="!Ext.isEmpty(values.subject)">{subject}<tpl else>(no subject)</tpl>',
+                    '   </div>',
                     '   <div class="message">{message}</div>',
                     '</div>'
                 ].join('')

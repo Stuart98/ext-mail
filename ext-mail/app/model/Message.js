@@ -57,6 +57,10 @@ Ext.define('ExtMail.model.Message', {
         {
             name: 'sent',
             type: 'boolean'
+        },
+        {
+            name: 'starred',
+            type: 'boolean'
         }
     ],
 

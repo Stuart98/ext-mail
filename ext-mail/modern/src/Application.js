@@ -43,7 +43,12 @@
                 // close the menu when instructed
                 closemenu: function() {
                     Ext.Viewport.hideMenu('left');
-                }
+                },
+
+                labelselected: function(labelsTree, labelRecord) {
+                    this.getMainView().getController().onLabelSelectionChange(labelsTree, [labelRecord]);
+                },
+                scope: this
             }
         }));
     },
@@ -52,7 +57,7 @@
       this.composeButton = Ext.create('ExtMail.view.compose.ComposeButton', {
         hidden: false,
         handler: function() {
-          this.getMainView().getController().onComposeMessage();
+          this.getMainView().getController().onCompose();
         },
         scope: this
       });

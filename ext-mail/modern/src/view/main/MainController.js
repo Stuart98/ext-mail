@@ -26,7 +26,7 @@ Ext.define('ExtMail.view.main.MainController', {
         this.handleMessageClick(location.record);
     },
 
-    showComposeWindow: function(messageRecord) {
+    showDraftWindow: function(messageRecord) {
       this.getViewModel().set('selectedMessage', messageRecord);
     },
 
@@ -40,6 +40,16 @@ Ext.define('ExtMail.view.main.MainController', {
       this.callParent(arguments);
 
       this.onBackToMessagesGrid();
+    },
+
+    onBackToMessagesGrid: function() {
+      this.callParent(arguments);
+
+      // modern toolkit app holds drafts as fullscreen component so we can remove that route on
+      // back navigation here, in case we were in the middle of a draft
+      this.redirectTo({
+        draft: null
+      });
     },
 
     /**

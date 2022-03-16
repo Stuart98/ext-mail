@@ -19,6 +19,15 @@ Ext.define('ExtMail.model.Label', {
 
                 return combined;
             }
+        },
+
+        {
+            name: 'slug',
+            calculate: function(data) {
+                return (data.name || '').toLowerCase()
+                                        .replace(/ /g, '-')
+                                        .replace(/[^\w-]+/g, '');
+            }
         }
     ]
 });

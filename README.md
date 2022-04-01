@@ -30,6 +30,7 @@ _To view the modern toolkit application open Dev Tools and switch on [Device Mod
 - Send Messages
 - Create message drafts
 - (modern) Sliding menu
+- Deep linking using Ext.router.Router
 
 ## Running the Application
 

@@ -69,7 +69,8 @@ Ext.define('ExtMail.view.main.Main', {
                 selection: '{selectedLabel}'
             },
             listeners: {
-                compose: 'onComposeMessage'
+                compose: 'onCompose',
+                selectionchange: 'onLabelSelectionChange'
             }
         },
         {

@@ -24,8 +24,7 @@ Ext.define('ExtMail.view.menu.Menu', {
                 background: 'white'
             },
             bind: {
-                store: '{labels}',
-                selection: '{selectedLabel}'
+                store: '{labels}'
             },
             listeners: {
                 selectionchange: 'onLabelSelectionChange'
@@ -34,7 +33,9 @@ Ext.define('ExtMail.view.menu.Menu', {
     ],
 
     // when the selected label changes then we fire the `closemenu` event
-    onLabelSelectionChange: function() {
+    onLabelSelectionChange: function(tree, selectedLabelRecord) {
+        this.fireEvent('labelselected', tree, selectedLabelRecord);
+
         this.fireEvent('closemenu');
     },
 

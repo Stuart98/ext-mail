@@ -1,11 +1,12 @@
 {
-  /**
+    /**
      *  An array of the paths to all the applications present in this workspace
      */
-  "apps": [
-    "ext-mail"
-  ],
-  /**
+    "apps": [
+        "ext-mail"
+    ],
+
+    /**
      * An object containing key value pair framework descriptors.
      *
      * The value should be an object containing "path" the path inside the workspace where the framework
@@ -26,27 +27,33 @@
      * with "sencha workspace install". See "sencha help workspace install" for more information.
      *
      */
-  "frameworks": {
-    "ext": "node_modules/@sencha/ext"
-  },
-  /**
+    "frameworks": {
+        "ext": {
+            "path":"ext",
+            "version":"7.4.0.42"
+        }
+    },
+
+    /**
      * This is the folder for build outputs in the workspace.
      */
-  "build": {
-    "dir": "${workspace.dir}/build"
-  },
-  /**
+    "build": {
+        "dir": "${workspace.dir}/build"
+    },
+
+    /**
      * These configs determine where packages are generated and extracted to (when downloaded).
      */
-  "packages": {
-    /**
+    "packages": {
+        /**
          * This folder contains all local packages.
          * If a comma-separated string is used as value the first path will be used as the path to generate new packages.
          */
-    "dir": "${workspace.dir}/packages/local,${workspace.dir}/packages",
-    /**
+        "dir": "${workspace.dir}/packages/local,${workspace.dir}/packages",
+
+        /**
          * This folder contains all extracted (remote) packages.
          */
-    "extract": "${workspace.dir}/packages/remote"
-  }
+        "extract": "${workspace.dir}/packages/remote"
+    }
 }

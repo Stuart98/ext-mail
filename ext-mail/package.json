@@ -1,0 +1,57 @@
+{
+  "name": "ExtMail",
+  "product": "ext",
+  "version": "1.0.0-0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+
+  "scripts": {
+    "start": "npm run dev:classic",
+    "clean": "rimraf build",
+    "dev:classic": "webpack-dev-server --env profile=classic --env browser=yes --env verbose=no",
+    "dev:modern": "webpack-dev-server --env profile=modern --env browser=yes --env verbose=no",
+    "build": "npm run clean && cross-env webpack --env environment=production --env treeshake=yes",
+    "build:classic": "npm run clean && cross-env webpack --env profile=classic --env environment=production --env treeshake=yes",
+    "build:modern": "npm run clean && cross-env webpack --env profile=modern --env environment=production --env treeshake=yes",
+    "testing:classic": "npm run clean && cross-env webpack --env treeshake=yes --env cmdopts=--testing --env cmdopts=--build=classic",
+    "testing:modern": "npm run clean && cross-env webpack --env treeshake=yes --env cmdopts=--testing --env cmdopts=--build=modern"
+  },
+
+
+  "dependencies": {
+    
+    "@sencha/ext-modern": "~7.5.1",
+    "@sencha/ext-modern-theme-material": "~7.5.1",
+    "@sencha/ext-classic": "~7.5.1",
+    "@sencha/ext-classic-theme-triton": "~7.5.1",
+    "@sencha/ext": "~7.5.1"
+  },
+  "devDependencies": {
+    "@sencha/ext-webpack-plugin": "~7.5.1",
+    "cross-env": "^5.2.0",
+    "portfinder": "^1.0.21",
+    "rimraf": "^3.0.2",
+    "webpack": "^5.55.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.2.1",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-async-to-generator": "^7.5.1",
+    "@babel/plugin-transform-regenerator": "^7.4.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-loader": "^8.0.6",
+    "replace": "^1.1.1"
+  }
+}
